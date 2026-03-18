@@ -22,7 +22,7 @@ userRouter.post("/follow/:username",identifyUser, userController.followUserContr
 userRouter.post("/unfollow/:username",identifyUser, userController.unfollowUserController)
 
 // Send Follow Request
-userRouter.post("/follow/:username",identifyUser,followController.sendFollowRequest)
+// userRouter.post("/follow/:username",identifyUser,followController.sendFollowRequest)
 
 // Accept Follow Request
 userRouter.put("/follow/accept/:followId",identifyUser,followController.acceptFollowRequest)

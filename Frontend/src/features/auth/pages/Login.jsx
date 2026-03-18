@@ -4,24 +4,28 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
 const Login = () => {
+
+  const { user, loading, handleLogin } = useAuth();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const { handleLogin,loading } = useAuth();
   const navigate = useNavigate()
 
-  if(loading) {
-    return <h1>Loading...</h1>
-  }
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    handleLogin(username, password).then((res) => {
-      console.log(res);
+    await handleLogin(username, password).then((res) => {
+      console.log("user loggedIn");
       navigate("/")
     });
   };
+
+  if (loading) {
+    return (<main>
+      <h1>Loading...</h1>
+      </main>)
+  }
 
   return (
     <main>
@@ -44,13 +48,13 @@ const Login = () => {
             name="password"
             placeholder="Enter Password"
           />
-          <button type="submit">Login</button>
+          <button className="button primary-button" type="submit">Login</button>
         </form>
 
         <p>
           Don't have an account?{" "}
           <Link className="toggleAuthForm" to="/register">
-            Register
+            Create an account
           </Link>
         </p>
       </div>
