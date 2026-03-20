@@ -25,9 +25,14 @@ const Feed = () => {
         <Nav />
         <div className="feed">
             <div className="posts">
-                {feed.map(post=>{
+                {/* {feed.map(post=>{
                     return <Post user={post.user} post={post} loading={loading} handleLike={handleLike} handleUnLike={handleUnLike}/>
-                })}
+                })} */}
+
+                {feed.map(post => {
+    // Add a unique key here (usually post._id from MongoDB)
+    return <Post key={post._id} user={post.user} post={post} loading={loading} handleLike={handleLike} handleUnLike={handleUnLike}/>
+})}
             </div>
         </div>
     </main>

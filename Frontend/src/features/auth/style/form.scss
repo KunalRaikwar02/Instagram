@@ -1,38 +1,177 @@
-@mixin flex-column($gap: 0){
-    display: flex;
-    flex-direction: column;
-    gap: $gap;
+// Luxe dark background
+main.auth-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  background-color: #000; // Instagram dark background
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-main{
-    min-height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+// 📱 Left Section: Image and Text (Will be hidden on mobile)
+.auth-hero-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
+  background-color: #000;
 
-.form-container{
-    @include flex-column(1rem);
-    height: fit-content;
-    min-width: 400px;
+  .hero-content {
+    max-width: 480px;
+    text-align: center;
+    position: relative; // For floating icons
 
-    form{
-        @include flex-column(1rem);
-
-        input{
-            border: none;
-            outline: none;
-            padding-inline: 1.5rem;
-            padding-block: 1rem;
-            border-radius: 1rem;
-        }
+    .insta-logo {
+      width: 60px;
+      margin-bottom: 2rem;
     }
 
-    // .toggleAuthForm{
-    //     color: #fd2828;
-    //     text-decoration: none;
-    //     font-weight: 600;
-    //     cursor: pointer;
-    // }
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 3rem;
+
+      .gradient-text {
+        background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+    }
+  }
+
+  .floating-icons {
+    position: relative;
+    width: 100%;
+    margin-top: -50px; // Subtle overlap
+
+    .main-stories-img {
+      width: 100%;
+      max-width: 380px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    // Positions for decorative icons from your image (approximate)
+    .icon { position: absolute; }
+    .story-bubble { top: 0%; left: 10%; width: 50px; }
+    .reaction-bubbles { top: 5%; right: 15%; width: 80px; }
+    .heart-icon { bottom: 20%; left: 5%; width: 40px; }
+    .user-avatar { bottom: 15%; right: 10%; width: 60px; border-radius: 50%; border: 3px solid; border-image: conic-gradient(from 45deg, rgb(255, 102, 0), rgb(105, 0, 128), rgb(255, 102, 8)) 1; }
+  }
+}
+
+// 📝 Right Section: Form (Shared between Login/Register)
+.auth-form-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: #000;
+  border-left: 1px solid #262626; // Subtle separator like in image
+
+  .form-box {
+    width: 100%;
+    max-width: 350px; // Standard width from image
+    text-align: center;
+
+    .form-header {
+      margin-bottom: 2rem;
+      h2 { font-size: 1rem; font-weight: 600; text-align: left; }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+
+      .input-wrapper {
+        input {
+          width: 100%;
+          background: #121212;
+          border: 1px solid #363636;
+          padding: 0.8rem 1rem;
+          border-radius: 3px; // Instagram's very sharp corner radius
+          color: #fff;
+          font-size: 0.85rem;
+          transition: border-color 0.2s;
+
+          &::placeholder { color: #8e8e8e; }
+
+          &:focus {
+            outline: none;
+            border-color: #a8a8a8; // Subtle focus border like in image
+          }
+        }
+      }
+
+      button.primary-button {
+        margin-top: 0.5rem;
+        background-color: #0095f6; // Instagram primary blue
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 0.6rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover { background-color: #1877f2; }
+        &:disabled { background-color: rgba(0, 149, 246, 0.3); cursor: not-allowed; }
+      }
+    }
+
+    .separator {
+      margin: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      color: #8e8e8e;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: 600;
+
+      &::before, &::after { content: ""; flex: 1; height: 1px; background-color: #262626; }
+      &::before { margin-right: 1rem; }
+      &::after { margin-left: 1rem; }
+    }
+
+    .secondary-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+
+      .forgot-password { color: #00376b; text-decoration: none; font-size: 0.8rem; }
+
+      .fb-login {
+        display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+        color: #fff; font-weight: 600; text-decoration: none;
+        background-color: #121212; border: 1px solid #363636; border-radius: 8px; padding: 0.6rem;
+        svg { width: 1.2rem; height: 1.2rem; }
+      }
+    }
+
+    .form-switcher {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      border: 1px solid #262626; // Separate box for switcher
+      font-size: 0.9rem;
+      p { color: #fff; }
+      .link { color: #0095f6; font-weight: 600; text-decoration: none; margin-left: 0.3rem; }
+    }
+    
+    .meta-logo { width: 60px; margin-top: 2rem; opacity: 0.5; }
+  }
+}
+
+// 📱 Mobile Responsiveness (Hides Hero Section)
+@media (max-width: 876px) {
+  .auth-hero-section { display: none; }
+  .auth-form-section { border-left: none; padding: 1rem; }
 }
